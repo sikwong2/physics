@@ -19,6 +19,7 @@ const (
 
 	// Frame rate control
 	TARGET_FPS = 60
+	N          = 15
 )
 
 type Ball struct {
@@ -36,10 +37,10 @@ func NewBall(mass float32, radius float32) *Ball {
 	y := radius + rand.Float32()*(HEIGHT-2*radius)
 
 	// Initial random velocity - slower velocities
-	dx := (rand.Float32()*2 - 1) * 1.5
+	dx := (rand.Float32()*2 - 1) * 2
 	dy := (rand.Float32()*2 - 1) * 1.5
 
-	fmt.Printf("Created ball at (%f, %f) with velocity (%f, %f)\n", x, y, dx, dy)
+	// fmt.Printf("Created ball at (%f, %f) with velocity (%f, %f)\n", x, y, dx, dy)
 
 	ball := &Ball{
 		x:      x,
@@ -191,7 +192,7 @@ func main() {
 		}
 
 		// Add a new ball every 180 frames (about 3 seconds at 60fps)
-		if frameCount%180 == 0 && len(balls) < 15 {
+		if frameCount%180 == 0 && len(balls) < N {
 			radius := float32(rand.Intn(20) + 10)
 			balls = append(balls, NewBall(radius/2, radius))
 		}
